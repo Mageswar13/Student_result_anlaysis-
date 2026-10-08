@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Student Result Analysis{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<section class="cards">
+    <div class="card"><span class="num">{{ counts.students }}</span><span class="lbl">Students</span></div>
+    <div class="card"><span class="num">{{ counts.subjects }}</span><span class="lbl">Subjects</span></div>
+    <div class="card"><span class="num">{{ counts.marks }}</span><span class="lbl">Marks entries</span></div>
+    <div class="card"><span class="num">{{ summary.pass_percentage }}%</span><span class="lbl">Pass percentage</span></div>
+</section>
+
+{% if summary.has_data %}
+<section class="panel">
+    <h2>Class Topper{{ 's' if summary.toppers|length > 1 }}</h2>
+    {% for t in summary.toppers %}
+        <p class="topper">&#127942; <strong>{{ t.name }}</strong> ({{ t.roll_no }})
+        &mdash; {{ '%g'|format(t.total) }} marks, {{ t.percentage }}%</p>
+    {% endfor %}
+    <p class="muted">Class average: {{ summary.class_average }}% &middot;
+       Passed: {{ summary.pass_count }} &middot; Failed: {{ summary.fail_count }}</p>
+</section>
+{% else %}
+<section class="panel">
+    <p>No results yet. Start by <a href="{{ url_for('add_student') }}">adding a student</a>,
+    then <a href="{{ url_for('add_marks') }}">enter marks</a>.</p>
+</section>
+{% endif %}
+
+<section class="actions">
+    <a class="btn" href="{{ url_for('add_student') }}">Add Student</a>
+    <a class="btn" href="{{ url_for('add_marks') }}">Add Marks</a>
+    <a class="btn secondary" href="{{ url_for('view_results') }}">View Results</a>
+    <a class="btn secondary" href="{{ url_for('analysis_page') }}">View Analysis</a>
+</section>
+{% endblock %}

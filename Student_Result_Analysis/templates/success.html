@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Success' if status == 'success' else 'Error' }}{% endblock %}
+
+{% block content %}
+<div class="message {{ status }}">
+    <h1>{{ '&#10004; Success' if status == 'success' else '&#9888; Something went wrong' }}</h1>
+    <p>{{ message }}</p>
+    <p>
+        <a class="btn" href="{{ back_url }}">{{ back_text }}</a>
+        <a class="btn secondary" href="{{ url_for('index') }}">Dashboard</a>
+    </p>
+</div>
+{% endblock %}

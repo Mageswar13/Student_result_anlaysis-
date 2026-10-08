@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Add Student{% endblock %}
+
+{% block content %}
+<h1>Add Student</h1>
+
+{% if errors %}
+<ul class="errors">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+{% endif %}
+
+<form method="post" class="form">
+    <label>Roll number
+        <input type="text" name="roll_no" value="{{ form.get('roll_no', '') }}" maxlength="20" required>
+    </label>
+    <label>Full name
+        <input type="text" name="name" value="{{ form.get('name', '') }}" maxlength="100" required>
+    </label>
+    <label>Email (optional)
+        <input type="email" name="email" value="{{ form.get('email', '') }}" maxlength="120">
+    </label>
+    <label>Department
+        <input type="text" name="department" value="{{ form.get('department', '') }}" maxlength="100" placeholder="e.g. BCA" required>
+    </label>
+    <label>Year
+        <input type="number" name="year" min="1" max="6" value="{{ form.get('year', '1') }}" required>
+    </label>
+    <button type="submit" class="btn">Save Student</button>
+</form>
+{% endblock %}

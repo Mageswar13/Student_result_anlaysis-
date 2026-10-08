@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Add Marks{% endblock %}
+
+{% block content %}
+<h1>Add Marks</h1>
+
+{% if errors %}
+<ul class="errors">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+{% endif %}
+
+{% if not students %}
+<p class="panel">No students yet. <a href="{{ url_for('add_student') }}">Add a student first</a>.</p>
+{% elif not subjects %}
+<p class="panel">No subjects found. Run <code>database/schema.sql</code> or insert subjects into the <code>subjects</code> table.</p>
+{% else %}
+<form method="post" class="form">
+    <label>Student
+        <select name="student_id" required>
+            <option value="">-- select student --</option>
+            {% for s in students %}
+            <option value="{{ s.student_id }}" {{ 'selected' if form.get('student_id') == s.student_id|string }}>
+                {{ s.roll_no }} - {{ s.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Subject
+        <select name="subject_id" required>
+            <option value="">-- select subject --</option>
+            {% for sub in subjects %}
+            <option value="{{ sub.subject_id }}" {{ 'selected' if form.get('subject_id') == sub.subject_id|string }}>
+                {{ sub.name }} (max {{ sub.max_marks }})
+            </option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Marks
+        <input type="number" name="marks" step="0.01" min="0" value="{{ form.get('marks', '') }}" required>
+    </label>
+    <p class="muted">Entering marks again for the same student and subject updates the old value.</p>
+    <button type="submit" class="btn">Save Marks</button>
+</form>
+{% endif %}
+{% endblock %}

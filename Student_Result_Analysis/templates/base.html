@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Student Result Analysis{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a class="brand" href="{{ url_for('index') }}">Student Result Analysis</a>
+        <nav>
+            <a href="{{ url_for('index') }}">Dashboard</a>
+            <a href="{{ url_for('add_student') }}">Add Student</a>
+            <a href="{{ url_for('add_marks') }}">Add Marks</a>
+            <a href="{{ url_for('view_results') }}">Results</a>
+            <a href="{{ url_for('analysis_page') }}">Analysis</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">Student Result Analysis &middot; Flask + MySQL + Pandas</footer>
+</body>
+</html>

@@ -1,0 +1,90 @@
+/* Student Result Analysis - all styling */
+:root {
+    --bg: #f4f5f9;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --border: #e5e7eb;
+    --ok: #16a34a;
+    --bad: #dc2626;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+}
+.navbar .brand { color: #fff; font-weight: 700; font-size: 1.15rem; text-decoration: none; }
+.navbar nav a { color: #e0e7ff; margin-left: 1.1rem; text-decoration: none; font-weight: 500; }
+.navbar nav a:hover { color: #fff; text-decoration: underline; }
+
+.container { width: 100%; max-width: 1100px; margin: 1.5rem auto; padding: 0 1.2rem; flex: 1; }
+.footer { text-align: center; padding: 1rem; color: var(--muted); font-size: 0.85rem; }
+
+h1 { margin-top: 0; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; text-align: center; }
+.card .num { display: block; font-size: 2rem; font-weight: 700; color: var(--primary); }
+.card .lbl { color: var(--muted); font-size: 0.9rem; }
+
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.4rem; margin-bottom: 1.5rem; }
+.panel h2 { margin-top: 0; }
+.topper { font-size: 1.1rem; margin: 0.3rem 0; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.btn { display: inline-block; background: var(--primary); color: #fff; border: 0; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-size: 1rem; cursor: pointer; }
+.btn:hover { background: var(--primary-dark); }
+.btn.secondary { background: #fff; color: var(--primary); border: 1px solid var(--primary); }
+.btn.secondary:hover { background: #eef2ff; }
+
+.form { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; max-width: 520px; }
+.form label { display: block; font-weight: 600; margin-bottom: 1rem; }
+.form input, .form select { display: block; width: 100%; margin-top: 0.3rem; padding: 0.55rem 0.7rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; font-weight: 400; }
+.form input:focus, .form select:focus { outline: 2px solid #c7d2fe; border-color: var(--primary); }
+
+.errors { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.8rem 1.8rem; border-radius: 8px; max-width: 520px; }
+
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+thead th { background: #eef2ff; color: #312e81; }
+tbody tr:hover { background: #f9fafb; }
+
+.badge { padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; color: #fff; }
+.badge.pass { background: var(--ok); }
+.badge.fail { background: var(--bad); }
+.link-danger { background: none; border: 0; color: var(--bad); cursor: pointer; font-size: 0.9rem; }
+.link-danger:hover { text-decoration: underline; }
+
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1rem; }
+.charts img { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem; }
+
+.message { background: var(--surface); border: 1px solid var(--border); border-left: 6px solid var(--ok); border-radius: 10px; padding: 1.5rem; max-width: 640px; margin: 2rem auto; }
+.message.error { border-left-color: var(--bad); }
+.message .btn { margin-right: 0.5rem; }
+
+@media (max-width: 600px) {
+    .navbar nav a { margin: 0.4rem 0.8rem 0 0; }
+    .charts { grid-template-columns: 1fr; }
+}

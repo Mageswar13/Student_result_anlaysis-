@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Analysis{% endblock %}
+
+{% block content %}
+<h1>Analysis</h1>
+
+{% if not summary.has_data %}
+<p class="panel">No data to analyse yet. <a href="{{ url_for('add_marks') }}">Add marks</a> first.</p>
+{% else %}
+<section class="cards">
+    <div class="card"><span class="num">{{ summary.total_students }}</span><span class="lbl">Students</span></div>
+    <div class="card"><span class="num">{{ summary.pass_percentage }}%</span><span class="lbl">Pass percentage</span></div>
+    <div class="card"><span class="num">{{ summary.class_average }}%</span><span class="lbl">Class average</span></div>
+    <div class="card"><span class="num">{{ summary.highest }}%</span><span class="lbl">Highest score</span></div>
+</section>
+
+<section class="panel">
+    <h2>Topper{{ 's' if summary.toppers|length > 1 }}</h2>
+    {% for t in summary.toppers %}
+    <p class="topper">&#127942; <strong>{{ t.name }}</strong> ({{ t.roll_no }}) &mdash;
+       {{ '%g'|format(t.total) }} marks, {{ t.percentage }}%</p>
+    {% endfor %}
+</section>
+
+<section class="panel">
+    <h2>Subject statistics</h2>
+    <table>
+        <thead><tr><th>Subject</th><th>Average</th><th>Highest</th><th>Lowest</th><th>Students</th></tr></thead>
+        <tbody>
+        {% for s in summary.subject_stats %}
+            <tr>
+                <td>{{ s.subject }}</td><td>{{ s.average }}</td>
+                <td>{{ '%g'|format(s.highest) }}</td><td>{{ '%g'|format(s.lowest) }}</td>
+                <td>{{ s.appeared }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<section class="charts">
+    <img src="{{ url_for('static', filename='charts/' ~ charts.subject_avg, v=version) }}" alt="Average marks by subject">
+    <img src="{{ url_for('static', filename='charts/' ~ charts.top_students, v=version) }}" alt="Top 5 students">
+    <img src="{{ url_for('static', filename='charts/' ~ charts.pass_fail, v=version) }}" alt="Pass vs fail">
+    <img src="{{ url_for('static', filename='charts/' ~ charts.grades, v=version) }}" alt="Grade distribution">
+</section>
+{% endif %}
+{% endblock %}

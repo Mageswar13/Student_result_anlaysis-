@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+
+{% block content %}
+<h1>Results</h1>
+
+{% if not rows %}
+<p class="panel">No marks entered yet. <a href="{{ url_for('add_marks') }}">Add marks</a>.</p>
+{% else %}
+<div class="table-wrap">
+<table>
+    <thead>
+        <tr>
+            <th>Rank</th><th>Roll No</th><th>Name</th><th>Dept</th>
+            {% for sub in subjects %}<th>{{ sub }}</th>{% endfor %}
+            <th>Total</th><th>%</th><th>Grade</th><th>Result</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in rows %}
+        <tr>
+            <td>{{ r['rank'] }}</td>
+            <td>{{ r['roll_no'] }}</td>
+            <td>{{ r['name'] }}</td>
+            <td>{{ r['department'] }}</td>
+            {% for sub in subjects %}
+            <td>{{ '%g'|format(r[sub]) if r[sub] is not none else '-' }}</td>
+            {% endfor %}
+            <td><strong>{{ '%g'|format(r['total']) }}</strong> / {{ '%g'|format(r['max_total']) }}</td>
+            <td>{{ r['percentage'] }}</td>
+            <td>{{ r['grade'] }}</td>
+            <td><span class="badge {{ 'pass' if r['result'] == 'Pass' else 'fail' }}">{{ r['result'] }}</span></td>
+            <td>
+                <form method="post" action="{{ url_for('delete_student', student_id=r['student_id']) }}"
+                      onsubmit="return confirm('Delete {{ r['name']|e }} and all their marks?');">
+                    <button type="submit" class="link-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<p class="muted">Pass rule: every subject must be at least 40% of its maximum marks (change in config.py).</p>
+{% endif %}
+{% endblock %}
